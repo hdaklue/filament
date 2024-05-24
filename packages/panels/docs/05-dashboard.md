@@ -245,6 +245,22 @@ class Dashboard extends \Filament\Pages\Dashboard
 }
 ```
 
+It's important to add the below code to your `Dashboard` view file to render `widgets()` array
+
+```blade
+<x-filament-widgets::widgets
+        :columns="$this->getColumns()"
+        :data="
+            [
+                ...(property_exists($this, 'filters') ? ['filters' => $this->filters] : []),
+                ...$this->getWidgetData(),
+            ]
+        "
+        :widgets="$this->getVisibleWidgets()"
+    />
+
+```
+
 Finally, remove the original `Dashboard` class from [configuration file](configuration):
 
 ```php
